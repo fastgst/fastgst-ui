@@ -329,67 +329,54 @@ customStyles: |
       }
   }
 
-  /* Image Zoom Effect */
-  .image-zoom-wrapper {
+  /* Image View Button */
+  .image-view-wrapper {
       position: relative;
-  }
-
-  .image-zoom-container {
-      position: relative;
-      overflow: visible;
-      cursor: zoom-in;
-  }
-
-  @media (min-width: 640px) {
-      .image-zoom-container {
-          cursor: crosshair;
-      }
-  }
-
-  .image-zoom-container img {
-      display: block;
+      display: inline-block;
       width: 100%;
-      height: auto;
-      pointer-events: none;
-      border-radius: 0.5rem;
   }
 
-  .image-zoom-overlay {
-      position: fixed;
-      width: 400px;
-      height: 400px;
-      pointer-events: none;
+  .image-view-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px;
+      height: 56px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      z-index: 1000;
-      background-repeat: no-repeat;
-      background-size: 300% 300%;
-      background-position: 50% 50%;
-      border-radius: 0.5rem;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      background-color: #fff;
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: 2px solid rgba(255, 255, 255, 1);
   }
 
-  .image-zoom-wrapper:hover .image-zoom-overlay {
+  .image-view-wrapper:hover .image-view-button {
       opacity: 1;
       visibility: visible;
+      transform: translate(-50%, -50%) scale(1.05);
   }
 
-  /* Disable zoom on mobile for performance */
-  @media (max-width: 639px) {
-      .image-zoom-overlay {
-          display: none;
-      }
+  .image-view-button:hover {
+      background-color: rgba(255, 255, 255, 1);
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
   }
 
-  /* Adjust for smaller screens */
-  @media (max-width: 1024px) {
-      .image-zoom-overlay {
-          width: 300px;
-          height: 300px;
-      }
+  .image-view-button svg {
+      width: 28px;
+      height: 28px;
+      color: #374151;
+  }
+
+  .image-view-button:hover svg {
+      color: #1f2937;
   }
 
   /* Step Counter Badge */
@@ -499,11 +486,14 @@ customStyles: |
                                     Search by keywords to find HSN/SAC Code
                                 </p>
                                 <div class="flex justify-start w-full">
-                                    <div class="image-zoom-wrapper">
-                                        <div class="image-zoom-container rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 w-full" style="min-height: 300px;">
-                                            <img src="/images/carousal/1.webp" alt="KeyWord Search" class="w-full h-auto rounded-lg object-contain" loading="lazy" style="min-height: 300px; object-fit: contain;" data-zoom-src="/images/carousal/1.webp">
+                                    <div class="image-view-wrapper">
+                                        <img src="/images/carousal/1.webp" alt="KeyWord Search" class="w-full h-auto rounded-lg object-contain shadow-md hover:shadow-lg transition-shadow duration-300" loading="lazy" style="min-height: 300px; object-fit: contain;" data-image-src="/images/carousal/1.webp">
+                                        <div class="image-view-button" data-image-url="/images/carousal/1.webp" title="View full size">
+                                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
                                         </div>
-                                        <div class="image-zoom-overlay" data-zoom-image="1"></div>
                                     </div>
                                 </div>
                             </div>
@@ -518,11 +508,14 @@ customStyles: |
                                     Dig in through detailed HSN/SAC hierarchy
                                 </p>
                                 <div class="flex justify-center w-full">
-                                    <div class="image-zoom-wrapper">
-                                        <div class="image-zoom-container rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 w-full" style="min-height: 300px;">
-                                            <img src="/images/carousal/2.webp" alt="Code Hierarchy" class="w-full h-auto rounded-lg object-contain" loading="lazy" style="min-height: 300px; object-fit: contain;" data-zoom-src="/images/carousal/2.webp">
+                                    <div class="image-view-wrapper">
+                                        <img src="/images/carousal/2.webp" alt="Code Hierarchy" class="w-full h-auto rounded-lg object-contain shadow-md hover:shadow-lg transition-shadow duration-300" loading="lazy" style="min-height: 300px; object-fit: contain;" data-image-src="/images/carousal/2.webp">
+                                        <div class="image-view-button" data-image-url="/images/carousal/2.webp" title="View full size">
+                                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
                                         </div>
-                                        <div class="image-zoom-overlay" data-zoom-image="2"></div>
                                     </div>
                                 </div>
                             </div>
@@ -537,11 +530,14 @@ customStyles: |
                                     Get tax rates by HSN/SAC
                                 </p>
                                 <div class="flex justify-end w-full">
-                                    <div class="image-zoom-wrapper">
-                                        <div class="image-zoom-container rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 w-full" style="min-height: 300px;">
-                                            <img src="/images/carousal/3.webp" alt="Fetch Tax Rates" class="w-full h-auto rounded-lg object-contain" loading="lazy" style="min-height: 300px; object-fit: contain;" data-zoom-src="/images/carousal/3.webp">
+                                    <div class="image-view-wrapper">
+                                        <img src="/images/carousal/3.webp" alt="Fetch Tax Rates" class="w-full h-auto rounded-lg object-contain shadow-md hover:shadow-lg transition-shadow duration-300" loading="lazy" style="min-height: 300px; object-fit: contain;" data-image-src="/images/carousal/3.webp">
+                                        <div class="image-view-button" data-image-url="/images/carousal/3.webp" title="View full size">
+                                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
                                         </div>
-                                        <div class="image-zoom-overlay" data-zoom-image="3"></div>
                                     </div>
                                 </div>
                             </div>
@@ -563,66 +559,51 @@ customStyles: |
 </main>
 
 <script>
-    // Image Zoom and Pan Functionality
+    // Image View Functionality - Open images as blob in new tab
     document.addEventListener('DOMContentLoaded', function() {
-        // Only enable on non-mobile devices
-        if (window.innerWidth < 640) return;
+        const viewButtons = document.querySelectorAll('.image-view-button');
         
-        const zoomWrappers = document.querySelectorAll('.image-zoom-wrapper');
-        
-        zoomWrappers.forEach(function(wrapper) {
-            const container = wrapper.querySelector('.image-zoom-container');
-            const overlay = wrapper.querySelector('.image-zoom-overlay');
-            const img = container.querySelector('img');
-            const imgSrc = img.getAttribute('data-zoom-src');
-            
-            if (!img || !overlay || !imgSrc) return;
-            
-            // Set background image for overlay
-            overlay.style.backgroundImage = 'url(' + imgSrc + ')';
-            
-            // Mouse move handler for panning and positioning
-            container.addEventListener('mousemove', function(e) {
-                const rect = container.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+        viewButtons.forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 
-                // Calculate percentage position (0-100%)
-                const percentX = Math.max(0, Math.min(100, (x / rect.width) * 100));
-                const percentY = Math.max(0, Math.min(100, (y / rect.height) * 100));
+                const imageUrl = this.getAttribute('data-image-url');
+                if (!imageUrl) return;
                 
-                // Position overlay to the right of the container, centered vertically
-                const overlayWidth = window.innerWidth > 1024 ? 400 : 300;
-                const overlayHeight = window.innerWidth > 1024 ? 400 : 300;
-                const spacing = 20;
-                
-                // Check available space on right and left
-                const spaceOnRight = window.innerWidth - rect.right;
-                const spaceOnLeft = rect.left;
-                
-                // Position overlay where there's more space
-                if (spaceOnRight >= overlayWidth + spacing || spaceOnRight > spaceOnLeft) {
-                    // Position on the right side
-                    overlay.style.left = (rect.right + spacing) + 'px';
-                } else {
-                    // Position on the left side
-                    overlay.style.left = (rect.left - overlayWidth - spacing) + 'px';
-                }
-                
-                // Center vertically relative to container
-                let topPosition = rect.top + (rect.height / 2) - (overlayHeight / 2);
-                
-                // Ensure overlay stays within viewport bounds
-                topPosition = Math.max(10, Math.min(topPosition, window.innerHeight - overlayHeight - 10));
-                overlay.style.top = topPosition + 'px';
-                
-                // Pan the zoomed image
-                overlay.style.backgroundPosition = percentX + '% ' + percentY + '%';
-            });
-            
-            // Reset on mouse leave
-            wrapper.addEventListener('mouseleave', function() {
-                overlay.style.backgroundPosition = '50% 50%';
+                // Fetch the image as blob
+                fetch(imageUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch image');
+                        }
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        // Create blob URL
+                        const blobUrl = URL.createObjectURL(blob);
+                        
+                        // Open in new tab
+                        const newTab = window.open(blobUrl, '_blank');
+                        
+                        // Clean up blob URL after a delay (optional, helps with memory)
+                        if (newTab) {
+                            newTab.onload = function() {
+                                // Keep the blob URL until the tab is closed
+                                newTab.onbeforeunload = function() {
+                                    URL.revokeObjectURL(blobUrl);
+                                };
+                            };
+                        } else {
+                            // If popup blocked, revoke immediately
+                            setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error loading image:', error);
+                        // Fallback: open image directly
+                        window.open(imageUrl, '_blank');
+                    });
             });
         });
     });
