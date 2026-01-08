@@ -98,149 +98,200 @@ schemaData: |
 
                     <!-- Compact Search Card -->
                     <div class="gst-search-card bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200/50 relative z-20">
-                        <!-- Compact Search Input Section -->
+                        <!-- Main Toggle: Search Goods / Search Services -->
+                        <div id="main-toggle-bar" class="p-4 bg-gray-100 border-b border-gray-200/50">
+                            <div class="flex p-1 bg-white rounded-xl border border-gray-200 shadow-inner gap-1 max-w-md mx-auto">
+                                <button onclick="switchMainTab('goods')" id="main-tab-goods" class="flex-1 py-3 px-6 text-sm font-bold rounded-lg transition-all duration-200 shadow-sm bg-black text-white">
+                                    <span class="flex items-center justify-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                        </svg>
+                                        Search Goods
+                                    </span>
+                                </button>
+                                <button onclick="switchMainTab('services')" id="main-tab-services" class="flex-1 py-3 px-6 text-sm font-bold rounded-lg transition-all duration-200 text-gray-500 hover:bg-gray-50">
+                                    <span class="flex items-center justify-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                        Search Services
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Search Interface Section -->
                         <div id="search-interface" class="p-6 bg-gradient-to-r from-blue-50/80 to-indigo-50/80 border-b border-gray-200/50">
                             
-                            <!-- Mobile Tabs -->
-                            <div class="flex !flex-row md:hidden p-1 bg-white/60 backdrop-blur-md rounded-xl mb-6 border border-gray-200/60 shadow-inner gap-1 overflow-x-auto whitespace-nowrap">
-                                <button onclick="switchMobileSearch('keyword')" id="mob-tab-keyword" class="flex-1 min-w-0 py-2.5 text-xs font-bold rounded-lg transition-all duration-200 shadow-sm bg-white text-blue-700 ring-1 ring-black/5 whitespace-nowrap px-2">By Keywords</button>
-                                <button onclick="switchMobileSearch('hsn')" id="mob-tab-hsn" class="flex-1 min-w-0 py-2.5 text-xs font-bold rounded-lg transition-all duration-200 text-gray-500 hover:bg-white/50 whitespace-nowrap px-2">By HSN</button>
-                                <button onclick="switchMobileSearch('sac')" id="mob-tab-sac" class="flex-1 min-w-0 py-2.5 text-xs font-bold rounded-lg transition-all duration-200 text-gray-500 hover:bg-white/50 whitespace-nowrap px-2">By SAC</button>
-                            </div>
-
-                            <div id="mobile-keyword-panel" class="relative md:block">
-                                <!-- Mobile: Dropdown on top (full width) -->
-                                <div class="block md:hidden mb-3">
-                                    <select id="search-type-selector" class="appearance-none bg-black border-2 border-gray-600 rounded-lg px-4 py-4 text-sm font-medium text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 outline-none shadow-md pr-8 w-full">
-                                        <option value="hsn">📦 Goods (HSN)</option>
-                                        <option value="sac">🛠️ Services (SAC)</option>
-                                    </select>
-                                    <!-- Custom dropdown arrow -->
-                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                <!-- Search Input Container -->
-                                <div class="relative flex">
-                                    <!-- Desktop: Search Type Dropdown (side by side) -->
-                                    <div class="hidden md:block relative">
-                                        <select id="search-type-selector-desktop" class="appearance-none bg-black border-2 border-gray-600 border-r-0 rounded-l-lg px-4 py-4 text-lg font-medium text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 outline-none shadow-md pr-8 min-w-[180px] h-full box-border">
-                                            <option value="hsn">📦 Goods (HSN)</option>
-                                            <option value="sac">🛠️ Services (SAC)</option>
-                                        </select>
-                                        <!-- Custom dropdown arrow -->
-                                        <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-white">
-                                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            <!-- GOODS PANEL -->
+                            <div id="goods-panel" class="space-y-6">
+                                <!-- Search Goods By Keyword -->
+                                <div class="relative">
+                                    <!-- Section Label -->
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                             </svg>
                                         </div>
+                                        <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wider">Search Goods By Keyword</h3>
                                     </div>
-
-                                    <!-- Search Icon -->
-                                    <div class="absolute left-6 md:left-[240px] top-1/2 -translate-y-1/2 z-10 flex items-center pointer-events-none text-gray-500">
-                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                        </svg>
-                                    </div>
-
-                                    <input
-                                        type="text"
-                                        id="gst-search-input"
-                                        placeholder="Search goods or services..."
-                                        class="w-full pl-12 md:pl-16 pr-4 py-4 text-sm md:text-lg border-2 border-gray-300 md:border-l-0 rounded-lg md:rounded-r-lg md:rounded-l-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 outline-none bg-white shadow-md h-auto box-border"
-                                    >
-                                </div>
-
-                                <!-- Enhanced Search Results Dropdown (Floating Cards) -->
-                                <div id="search-results" class="hidden relative z-50 w-full mt-4">
-                                    <!-- Transparent container, no background box -->
-                                    <div class="pb-4">
-                                        <div class="space-y-0">
-                                            <!-- Search results will be populated here as independent cards -->
+                                    
+                                    <!-- Keyword Search Input -->
+                                    <div class="relative">
+                                        <div class="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex items-center pointer-events-none text-gray-400">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                            </svg>
                                         </div>
+                                        <input
+                                            type="text"
+                                            id="hsn-keyword-input"
+                                            placeholder="Search for goods like 'rice', 'mobile phone', 'cotton fabric'..."
+                                            class="w-full pl-12 pr-4 py-4 text-sm md:text-lg border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 outline-none bg-white shadow-md"
+                                        >
                                     </div>
-                                </div>
-                            </div>
 
-                            <!-- Divider with text -->
-                            <div class="relative mt-8 mb-8 hidden md:block">
-                                <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                                    <div class="w-full border-t border-gray-300"></div>
-                                </div>
-                                <div class="relative flex justify-center">
-                                    <span class="bg-white px-6 py-2 rounded-full text-sm font-bold text-gray-500 uppercase tracking-wider shadow-sm border border-gray-200">
-                                        Or Find By Code
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- Secondary Search Options -->
-                            <div class="flex flex-col md:flex-row items-center gap-6">
-                                <!-- Left Input (HSN) -->
-                                <div class="flex-1 w-full">
-                                    <div id="mobile-hsn-panel" class="relative group hidden md:block">
-                                        <div class="relative">
-                                            <!-- Icon -->
-                                            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-gray-800 transition-colors">
-                                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
-                                                </svg>
+                                    <!-- Keyword Search Results -->
+                                    <div id="hsn-keyword-results" class="hidden relative z-50 w-full mt-4">
+                                        <div class="pb-4">
+                                            <div class="space-y-0">
+                                                <!-- Search results will be populated here -->
                                             </div>
-
-                                            <!-- Standard Input -->
-                                            <input
-                                                type="text"
-                                                id="hsn-input-field"
-                                                maxlength="11"
-                                                placeholder="Search By HSN Code (XX-XX-XX-XX)"
-                                                class="w-full pl-12 pr-[160px] py-4 text-sm md:text-lg border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 outline-none bg-white shadow-md text-gray-800 font-medium"
-                                            >
-
-                                            <!-- Rectangular Black Search Button (Inside) -->
-                                            <button id="hsn-search-btn" class="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-black text-white text-sm font-bold rounded-lg hover:bg-gray-800 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm uppercase tracking-wide" disabled>
-                                                Search By HSN
-                                            </button>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <!-- HSN Helper Text - Under the input -->
-                                    <div id="hsn-helper-text" class="hidden md:block mt-1 text-xs font-medium text-left text-red-500">
+                                <!-- Divider -->
+                                <div class="relative">
+                                    <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                        <div class="w-full border-t border-gray-300"></div>
+                                    </div>
+                                    <div class="relative flex justify-center">
+                                        <span class="bg-gradient-to-r from-blue-50/80 to-indigo-50/80 px-4 py-1 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                                            Or
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Search By HSN Code -->
+                                <div class="relative">
+                                    <!-- Section Label -->
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-100 text-emerald-600">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                                            </svg>
+                                        </div>
+                                        <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wider">Search By HSN Code</h3>
+                                    </div>
+                                    
+                                    <!-- HSN Code Input -->
+                                    <div class="relative">
+                                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                                            </svg>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id="hsn-input-field"
+                                            maxlength="11"
+                                            placeholder="Enter HSN Code (XX-XX-XX-XX)"
+                                            class="w-full pl-12 pr-[160px] py-4 text-sm md:text-lg border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 outline-none bg-white shadow-md text-gray-800 font-medium"
+                                        >
+                                        <button id="hsn-search-btn" class="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-black text-white text-sm font-bold rounded-lg hover:bg-gray-800 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm uppercase tracking-wide" disabled>
+                                            Lookup HSN
+                                        </button>
+                                    </div>
+                                    <div id="hsn-helper-text" class="mt-2 text-xs font-medium text-left text-red-500">
                                         Please enter 8-digit tariff item HSN code
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Right Input (SAC) -->
-                                <div class="flex-1 w-full">
-                                    <div id="mobile-sac-panel" class="relative group hidden md:block">
-                                        <div class="relative flex items-center">
-                                            <!-- Icon -->
-                                            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
-                                                </svg>
-                                            </div>
-
-                                            <!-- Standard Input -->
-                                            <input
-                                                type="text"
-                                                id="sac-input-field"
-                                                maxlength="9"
-                                                placeholder="Search By SAC Code (XXX-X-X-X)"
-                                                class="w-full pl-12 pr-[160px] py-4 text-sm md:text-lg border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 outline-none bg-white shadow-md text-gray-800 font-medium"
-                                            >
-
-                                            <!-- Rectangular Black Search Button (Inside) -->
-                                            <button id="sac-search-btn" class="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-black text-white text-sm font-bold rounded-lg hover:bg-gray-800 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm uppercase tracking-wide" disabled>
-                                                Search By SAC
-                                            </button>
+                            <!-- SERVICES PANEL (Hidden by default) -->
+                            <div id="services-panel" class="space-y-6 hidden">
+                                <!-- Search Services By Keyword -->
+                                <div class="relative">
+                                    <!-- Section Label -->
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-600">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                            </svg>
                                         </div>
+                                        <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wider">Search Services By Keyword</h3>
+                                    </div>
+                                    
+                                    <!-- Keyword Search Input -->
+                                    <div class="relative">
+                                        <div class="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex items-center pointer-events-none text-gray-400">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                            </svg>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id="sac-keyword-input"
+                                            placeholder="Search for services like 'consulting', 'transportation', 'hotel'..."
+                                            class="w-full pl-12 pr-4 py-4 text-sm md:text-lg border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 outline-none bg-white shadow-md"
+                                        >
                                     </div>
 
-                                    <!-- SAC Helper Text - Under the input -->
-                                    <div id="sac-helper-text" class="hidden md:block mt-1 text-xs font-medium text-left text-red-500">
+                                    <!-- Keyword Search Results -->
+                                    <div id="sac-keyword-results" class="hidden relative z-50 w-full mt-4">
+                                        <div class="pb-4">
+                                            <div class="space-y-0">
+                                                <!-- Search results will be populated here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Divider -->
+                                <div class="relative">
+                                    <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                        <div class="w-full border-t border-gray-300"></div>
+                                    </div>
+                                    <div class="relative flex justify-center">
+                                        <span class="bg-gradient-to-r from-blue-50/80 to-indigo-50/80 px-4 py-1 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                                            Or
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Search By SAC Code -->
+                                <div class="relative">
+                                    <!-- Section Label -->
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-orange-100 text-orange-600">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                                            </svg>
+                                        </div>
+                                        <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wider">Search By SAC Code</h3>
+                                    </div>
+                                    
+                                    <!-- SAC Code Input -->
+                                    <div class="relative">
+                                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                                            </svg>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id="sac-input-field"
+                                            maxlength="9"
+                                            placeholder="Enter SAC Code (XXX-X-X-X)"
+                                            class="w-full pl-12 pr-[160px] py-4 text-sm md:text-lg border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300 outline-none bg-white shadow-md text-gray-800 font-medium"
+                                        >
+                                        <button id="sac-search-btn" class="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-black text-white text-sm font-bold rounded-lg hover:bg-gray-800 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm uppercase tracking-wide" disabled>
+                                            Lookup SAC
+                                        </button>
+                                    </div>
+                                    <div id="sac-helper-text" class="mt-2 text-xs font-medium text-left text-red-500">
                                         Please enter 6-digit service SAC code
                                     </div>
                                 </div>
@@ -256,9 +307,6 @@ schemaData: |
                                     <h2 class="text-lg font-bold text-gray-900" id="results-title">Search Results</h2>
                                     <p class="text-sm text-gray-500">To perform a new search, please refresh the page.</p>
                                 </div>
-                                <button onclick="window.location.reload()" class="px-4 py-2 bg-black text-white text-sm font-bold rounded-lg hover:bg-gray-800 transition-colors">
-                                    Search Again
-                                </button>
                             </div>
 
                             <!-- Row 1 - Hierarchy Tree (Classification) -->
@@ -503,73 +551,77 @@ schemaData: |
 // Global state for current search results
 let currentSearchResults = [];
 let currentSelectedHSN = null;
-let currentSearchType = 'hsn'; // Default to HSN
+let currentSearchType = 'hsn'; // Default to HSN (goods)
 
-// Global search function (will be initialized after DOM load)
-let performSearch;
+// Global search functions (will be initialized after DOM load)
+let performHSNKeywordSearch;
+let performSACKeywordSearch;
 
     // Search functionality
     document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('gst-search-input');
-        const searchTypeSelectorMobile = document.getElementById('search-type-selector');
-        const searchTypeSelectorDesktop = document.getElementById('search-type-selector-desktop');
-        const searchResults = document.getElementById('search-results');
-        const resultsContainer = searchResults.querySelector('.space-y-0');
+        const hsnKeywordInput = document.getElementById('hsn-keyword-input');
+        const sacKeywordInput = document.getElementById('sac-keyword-input');
+        const hsnKeywordResults = document.getElementById('hsn-keyword-results');
+        const sacKeywordResults = document.getElementById('sac-keyword-results');
+        const hsnResultsContainer = hsnKeywordResults ? hsnKeywordResults.querySelector('.space-y-0') : null;
+        const sacResultsContainer = sacKeywordResults ? sacKeywordResults.querySelector('.space-y-0') : null;
 
-        if (!searchInput || (!searchTypeSelectorMobile && !searchTypeSelectorDesktop)) {
-            console.error('Search elements not found!');
-            return;
+        let hsnSearchTimeout;
+        let sacSearchTimeout;
+
+    // Main Tab Switcher
+    window.switchMainTab = function(tab) {
+        const goodsTab = document.getElementById('main-tab-goods');
+        const servicesTab = document.getElementById('main-tab-services');
+        const goodsPanel = document.getElementById('goods-panel');
+        const servicesPanel = document.getElementById('services-panel');
+
+        if (tab === 'goods') {
+            currentSearchType = 'hsn';
+            // Active state for Goods tab
+            goodsTab.className = 'flex-1 py-3 px-6 text-sm font-bold rounded-lg transition-all duration-200 shadow-sm bg-black text-white';
+            servicesTab.className = 'flex-1 py-3 px-6 text-sm font-bold rounded-lg transition-all duration-200 text-gray-500 hover:bg-gray-50';
+            // Show Goods panel, hide Services panel
+            goodsPanel.classList.remove('hidden');
+            servicesPanel.classList.add('hidden');
+            // Clear service inputs
+            if (sacKeywordInput) sacKeywordInput.value = '';
+            if (sacKeywordResults) sacKeywordResults.classList.add('hidden');
+        } else {
+            currentSearchType = 'sac';
+            // Active state for Services tab
+            servicesTab.className = 'flex-1 py-3 px-6 text-sm font-bold rounded-lg transition-all duration-200 shadow-sm bg-black text-white';
+            goodsTab.className = 'flex-1 py-3 px-6 text-sm font-bold rounded-lg transition-all duration-200 text-gray-500 hover:bg-gray-50';
+            // Show Services panel, hide Goods panel
+            servicesPanel.classList.remove('hidden');
+            goodsPanel.classList.add('hidden');
+            // Clear goods inputs
+            if (hsnKeywordInput) hsnKeywordInput.value = '';
+            if (hsnKeywordResults) hsnKeywordResults.classList.add('hidden');
         }
 
-        let searchTimeout;
-
-        // Function to handle search type change
-        const handleSearchTypeChange = function(value) {
-            currentSearchType = value;
-            // Clear all inputs when switching search types
-            clearAllInputs();
-            // Update placeholder text based on search type
-            const placeholder = currentSearchType === 'sac'
-                ? 'Search services...'
-                : 'Search goods...';
-            searchInput.placeholder = placeholder;
-
-            // Sync both dropdowns
-            if (searchTypeSelectorMobile) searchTypeSelectorMobile.value = value;
-            if (searchTypeSelectorDesktop) searchTypeSelectorDesktop.value = value;
-        };
-
-        // Handle mobile search type selection
-        if (searchTypeSelectorMobile) {
-            searchTypeSelectorMobile.addEventListener('change', function() {
-                handleSearchTypeChange(this.value);
-            });
-        }
-
-        // Handle desktop search type selection
-        if (searchTypeSelectorDesktop) {
-            searchTypeSelectorDesktop.addEventListener('change', function() {
-                handleSearchTypeChange(this.value);
-            });
-        }
-
-    // Helper function to clear all inputs and reset UI state
-    function clearAllInputs() {
-        // Clear search input
-        if (searchInput) searchInput.value = '';
+        // Clear code inputs
+        clearCodeInputs();
         
+        // Hide results panel
+        const resultsPanel = document.getElementById('results-panel');
+        if (resultsPanel) {
+            resultsPanel.classList.add('hidden');
+        }
+    };
+
+    // Helper function to clear code inputs only
+    function clearCodeInputs() {
         // Clear HSN input
         const hsnInput = document.getElementById('hsn-input-field');
         if (hsnInput) {
             hsnInput.value = '';
-            // Reset HSN button state
             const hsnSearchBtn = document.getElementById('hsn-search-btn');
             if (hsnSearchBtn) hsnSearchBtn.disabled = true;
-            // Reset helper text to invalid state (hidden on mobile, visible on desktop)
             const hsnHelperText = document.getElementById('hsn-helper-text');
             if (hsnHelperText) {
                 hsnHelperText.textContent = 'Please enter 8-digit tariff item HSN code';
-                hsnHelperText.className = 'hidden md:block mt-1 text-xs font-medium text-left text-red-500';
+                hsnHelperText.className = 'mt-2 text-xs font-medium text-left text-red-500';
             }
         }
         
@@ -577,19 +629,28 @@ let performSearch;
         const sacInput = document.getElementById('sac-input-field');
         if (sacInput) {
             sacInput.value = '';
-            // Reset SAC button state
             const sacSearchBtn = document.getElementById('sac-search-btn');
             if (sacSearchBtn) sacSearchBtn.disabled = true;
-            // Reset helper text to invalid state (hidden on mobile, visible on desktop)
             const sacHelperText = document.getElementById('sac-helper-text');
             if (sacHelperText) {
                 sacHelperText.textContent = 'Please enter 6-digit service SAC code';
-                sacHelperText.className = 'hidden md:block mt-1 text-xs font-medium text-left text-red-500';
+                sacHelperText.className = 'mt-2 text-xs font-medium text-left text-red-500';
             }
         }
+    }
+
+    // Helper function to clear all inputs and reset UI state
+    function clearAllInputs() {
+        // Clear keyword inputs
+        if (hsnKeywordInput) hsnKeywordInput.value = '';
+        if (sacKeywordInput) sacKeywordInput.value = '';
+        
+        // Clear code inputs
+        clearCodeInputs();
         
         // Hide search results
-        if (searchResults) searchResults.classList.add('hidden');
+        if (hsnKeywordResults) hsnKeywordResults.classList.add('hidden');
+        if (sacKeywordResults) sacKeywordResults.classList.add('hidden');
         
         // Hide results panel
         const resultsPanel = document.getElementById('results-panel');
@@ -602,19 +663,20 @@ let performSearch;
         currentSelectedHSN = null;
     }
 
-    // Search input handler
-    performSearch = async function(query) {
+    // HSN Keyword Search handler
+    performHSNKeywordSearch = async function(query) {
+        if (!hsnResultsContainer) return;
+        
         if (!query.trim()) {
-            searchResults.classList.add('hidden');
+            hsnKeywordResults.classList.add('hidden');
             currentSearchResults = [];
             return;
         }
 
-        // Clear all other inputs when starting a keyword search
+        // Clear HSN code input when doing keyword search
         const hsnInput = document.getElementById('hsn-input-field');
-        const sacInput = document.getElementById('sac-input-field');
         if (hsnInput) hsnInput.value = '';
-        if (sacInput) sacInput.value = '';
+        
         // Hide results panel
         const resultsPanel = document.getElementById('results-panel');
         if (resultsPanel) {
@@ -622,42 +684,110 @@ let performSearch;
         }
 
         // Show loading state
-        resultsContainer.innerHTML = '<div class="px-4 py-3 text-gray-500 text-sm flex items-center gap-2"><div class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>Searching...</div>';
-        searchResults.classList.remove('hidden');
+        hsnResultsContainer.innerHTML = '<div class="px-4 py-3 text-gray-500 text-sm flex items-center gap-2"><div class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>Searching goods...</div>';
+        hsnKeywordResults.classList.remove('hidden');
 
         try {
-            // Use appropriate API based on search type
-            let response;
-            if (currentSearchType === 'sac') {
-                // For SAC search, we'll need to create a new API function
-                response = await TaxLookupAPI.searchBySACKeywords(query.trim());
-            } else {
-                // Default to HSN search
-                response = await TaxLookupAPI.searchByKeywords(query.trim());
-            }
+            const response = await TaxLookupAPI.searchByKeywords(query.trim());
             currentSearchResults = response.data || [];
 
-            // Show results
-            resultsContainer.innerHTML = '';
+            hsnResultsContainer.innerHTML = '';
 
             if (currentSearchResults.length > 0) {
                 currentSearchResults.forEach((item, index) => {
-                    // Create a single card for the Hierarchy Group
-                    const resultDiv = createSearchResultDiv(item, index);
+                    const resultDiv = createSearchResultDiv(item, index, 'hsn');
                     if (resultDiv) {
-                        resultsContainer.appendChild(resultDiv);
+                        hsnResultsContainer.appendChild(resultDiv);
                     }
                 });
             } else {
-                resultsContainer.innerHTML = '<div class="px-4 py-3 text-gray-500 text-sm">No results found</div>';
+                hsnResultsContainer.innerHTML = '<div class="px-4 py-3 text-gray-500 text-sm">No goods found matching your search</div>';
             }
         } catch (error) {
-            resultsContainer.innerHTML = '<div class="px-4 py-3 text-red-500 text-sm">Search failed. Please try again.</div>';
+            hsnResultsContainer.innerHTML = '<div class="px-4 py-3 text-red-500 text-sm">Search failed. Please try again.</div>';
         }
+    };
+
+    // SAC Keyword Search handler
+    performSACKeywordSearch = async function(query) {
+        if (!sacResultsContainer) return;
+        
+        if (!query.trim()) {
+            sacKeywordResults.classList.add('hidden');
+            currentSearchResults = [];
+            return;
+        }
+
+        // Clear SAC code input when doing keyword search
+        const sacInput = document.getElementById('sac-input-field');
+        if (sacInput) sacInput.value = '';
+        
+        // Hide results panel
+        const resultsPanel = document.getElementById('results-panel');
+        if (resultsPanel) {
+            resultsPanel.classList.add('hidden');
+        }
+
+        // Show loading state
+        sacResultsContainer.innerHTML = '<div class="px-4 py-3 text-gray-500 text-sm flex items-center gap-2"><div class="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-500"></div>Searching services...</div>';
+        sacKeywordResults.classList.remove('hidden');
+
+        try {
+            const response = await TaxLookupAPI.searchBySACKeywords(query.trim());
+            currentSearchResults = response.data || [];
+
+            sacResultsContainer.innerHTML = '';
+
+            if (currentSearchResults.length > 0) {
+                currentSearchResults.forEach((item, index) => {
+                    const resultDiv = createSearchResultDiv(item, index, 'sac');
+                    if (resultDiv) {
+                        sacResultsContainer.appendChild(resultDiv);
+                    }
+                });
+            } else {
+                sacResultsContainer.innerHTML = '<div class="px-4 py-3 text-gray-500 text-sm">No services found matching your search</div>';
+            }
+        } catch (error) {
+            sacResultsContainer.innerHTML = '<div class="px-4 py-3 text-red-500 text-sm">Search failed. Please try again.</div>';
+        }
+    };
+
+    // HSN Keyword input event listeners
+    if (hsnKeywordInput) {
+        hsnKeywordInput.addEventListener('input', function() {
+            clearTimeout(hsnSearchTimeout);
+            hsnSearchTimeout = setTimeout(() => {
+                performHSNKeywordSearch(this.value);
+            }, 500);
+        });
+
+        hsnKeywordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performHSNKeywordSearch(this.value);
+            }
+        });
+    }
+
+    // SAC Keyword input event listeners
+    if (sacKeywordInput) {
+        sacKeywordInput.addEventListener('input', function() {
+            clearTimeout(sacSearchTimeout);
+            sacSearchTimeout = setTimeout(() => {
+                performSACKeywordSearch(this.value);
+            }, 500);
+        });
+
+        sacKeywordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSACKeywordSearch(this.value);
+            }
+        });
     }
 
     // Helper function to create search result div (Disconnected Cards)
-    function createSearchResultDiv(item, globalIndex = 0) {
+    // type: 'hsn' or 'sac' determines which code input to populate on click
+    function createSearchResultDiv(item, globalIndex = 0, type = 'hsn') {
         // If no matches, return null (don't show empty headers or "no items" message)
         if (!item.matches || item.matches.length === 0) {
             return null;
@@ -676,9 +806,11 @@ let performSearch;
         }
         
         const headerDiv = document.createElement('div');
-        // Reduced padding (px-3 py-1) and enforced truncation
-        headerDiv.className = 'mb-2 px-3 py-1 text-left bg-blue-600 rounded-full border border-blue-500 shadow-md inline-block max-w-full relative z-50 opacity-100';
-        headerDiv.style.backgroundColor = '#2563eb'; // Force solid Blue hex color (blue-600)
+        // Use different colors for HSN vs SAC
+        const headerBg = type === 'sac' ? '#7c3aed' : '#2563eb'; // purple-600 for SAC, blue-600 for HSN
+        const headerBorder = type === 'sac' ? 'border-purple-500' : 'border-blue-500';
+        headerDiv.className = `mb-2 px-3 py-1 text-left rounded-full ${headerBorder} shadow-md inline-block max-w-full relative z-50 opacity-100`;
+        headerDiv.style.backgroundColor = headerBg;
         headerDiv.innerHTML = `
             <p class="text-[10px] font-bold text-white uppercase tracking-wider leading-snug opacity-100 whitespace-nowrap truncate" style="color: #ffffff !important;">${hierarchyDesc}</p>
         `;
@@ -694,18 +826,23 @@ let performSearch;
             const isHighMatch = scoreVal > 95;
             
             // Define colors based on match score (Lime Green for >95%, Standard Green for others)
-            // Using explicit hex values to ensure they work regardless of Tailwind config
-            const badgeBg = isHighMatch ? 'rgba(132, 204, 22, 0.2)' : 'rgba(34, 197, 94, 0.2)'; // Lime-500 vs Green-500
+            const badgeBg = isHighMatch ? 'rgba(132, 204, 22, 0.2)' : 'rgba(34, 197, 94, 0.2)';
             const badgeBorder = isHighMatch ? 'rgba(132, 204, 22, 0.5)' : 'rgba(34, 197, 94, 0.3)';
-            const dotColor = isHighMatch ? '#a3e635' : '#4ade80'; // Lime-400 vs Green-400
+            const dotColor = isHighMatch ? '#a3e635' : '#4ade80';
             const shadowColor = isHighMatch ? 'rgba(163, 230, 53, 0.6)' : 'rgba(74, 222, 128, 0.5)';
 
+            // Different hover colors for HSN vs SAC
+            const hoverBorderClass = type === 'sac' ? 'hover:border-purple-500' : 'hover:border-blue-500';
+
             const matchCard = document.createElement('div');
-            // Ensure solid opaque background with no transparency
-            matchCard.className = 'mb-2 bg-gray-900 rounded-lg border border-gray-700 hover:border-blue-500 cursor-pointer transition-all duration-150 group shadow-lg relative z-50 opacity-100 animate-drop-in';
-            matchCard.style.backgroundColor = '#111827'; // Force solid hex color (gray-900)
-            matchCard.style.animationDelay = `${index * 30}ms`; // Staggered delay based on global index context (or local if reset)
-            matchCard.dataset.hsn = matchCode;
+            matchCard.className = `mb-2 bg-gray-900 rounded-lg border border-gray-700 ${hoverBorderClass} cursor-pointer transition-all duration-150 group shadow-lg relative z-50 opacity-100 animate-drop-in`;
+            matchCard.style.backgroundColor = '#111827';
+            matchCard.style.animationDelay = `${index * 30}ms`;
+            matchCard.dataset.code = matchCode;
+            matchCard.dataset.type = type;
+            
+            // Code badge label
+            const codeLabel = type === 'sac' ? 'SAC' : 'HSN';
             
             matchCard.innerHTML = `
                 <div class="p-4 text-left">
@@ -719,7 +856,7 @@ let performSearch;
                             </div>
                             ` : ''}
 
-                            <!-- HSN Code Badge -->
+                            <!-- Code Badge -->
                             ${matchCode ? `
                             <div class="flex-shrink-0 flex items-center gap-1.5 px-2 py-1 rounded-md border" style="background-color: rgba(236, 72, 153, 0.2); border-color: rgba(236, 72, 153, 0.4);">
                                 <div class="w-1.5 h-1.5 rounded-full" style="background-color: #ec4899; box-shadow: 0 0 8px rgba(236, 72, 153, 0.5);"></div>
@@ -740,53 +877,44 @@ let performSearch;
             matchCard.onclick = (e) => {
                 e.stopPropagation();
 
-                // Hide search results
-                const searchResults = document.getElementById('search-results');
-                if (searchResults) {
-                    searchResults.classList.add('hidden');
-                }
+                const clickType = matchCard.dataset.type;
 
-                // Copy code to appropriate input field and trigger search
-                if (currentSearchType === 'sac') {
+                if (clickType === 'sac') {
+                    // Hide SAC keyword results
+                    const sacKeywordResults = document.getElementById('sac-keyword-results');
+                    if (sacKeywordResults) sacKeywordResults.classList.add('hidden');
+
                     // Copy SAC code to SAC input and click SAC search button
                     const sacInput = document.getElementById('sac-input-field');
                     const sacSearchBtn = document.getElementById('sac-search-btn');
-                    const searchInput = document.getElementById('gst-search-input');
+                    const sacKeywordInput = document.getElementById('sac-keyword-input');
 
                     if (sacInput) {
-                        // Set the raw digits and let the input event handler format it
-                        sacInput.value = matchCode.replace(/\D/g, ''); // Remove any non-digits
-                        sacInput.dispatchEvent(new Event('input')); // Trigger input validation and formatting
+                        sacInput.value = matchCode.replace(/\D/g, '');
+                        sacInput.dispatchEvent(new Event('input'));
                     }
 
-                    // Clear the main search input for SAC searches
-                    if (searchInput) {
-                        searchInput.value = '';
-                    }
+                    if (sacKeywordInput) sacKeywordInput.value = '';
 
-                    if (sacSearchBtn) {
-                        sacSearchBtn.click();
-                    }
+                    if (sacSearchBtn) sacSearchBtn.click();
                 } else {
+                    // Hide HSN keyword results
+                    const hsnKeywordResults = document.getElementById('hsn-keyword-results');
+                    if (hsnKeywordResults) hsnKeywordResults.classList.add('hidden');
+
                     // Copy HSN code to HSN input and click HSN search button
                     const hsnInput = document.getElementById('hsn-input-field');
                     const hsnSearchBtn = document.getElementById('hsn-search-btn');
-                    const searchInput = document.getElementById('gst-search-input');
+                    const hsnKeywordInput = document.getElementById('hsn-keyword-input');
 
                     if (hsnInput) {
-                        // Set the raw digits and let the input event handler format it
-                        hsnInput.value = matchCode.replace(/\D/g, ''); // Remove any non-digits
-                        hsnInput.dispatchEvent(new Event('input')); // Trigger input validation and formatting
+                        hsnInput.value = matchCode.replace(/\D/g, '');
+                        hsnInput.dispatchEvent(new Event('input'));
                     }
 
-                    // Clear the main search input for HSN searches
-                    if (searchInput) {
-                        searchInput.value = '';
-                    }
+                    if (hsnKeywordInput) hsnKeywordInput.value = '';
 
-                    if (hsnSearchBtn) {
-                        hsnSearchBtn.click();
-                    }
+                    if (hsnSearchBtn) hsnSearchBtn.click();
                 }
             };
             
@@ -796,23 +924,9 @@ let performSearch;
         return groupWrapper;
     }
 
-    // Input event listener with debounce
-    searchInput.addEventListener('input', function() {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-            performSearch(this.value);
-        }, 500);
-    });
-
-    // Enter key support
-    searchInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            performSearch(this.value);
-        }
-    });
-
-    // Make performSearch globally available for debugging
-    window.performSearch = performSearch;
+    // Make search functions globally available for debugging
+    window.performHSNKeywordSearch = performHSNKeywordSearch;
+    window.performSACKeywordSearch = performSACKeywordSearch;
 
     // Helper to restart animations in a container
     window.restartAnimations = function(container) {
@@ -881,10 +995,19 @@ let performSearch;
     // Select HSN code and display details
     async function selectHSNCode(hsnCode, description = '') {
         // Send notification (Search operation)
-        // If description is present, it means it came from a search result click
+        const opType = description ? 'search' : 'lookup';
+        sendNotification(hsnCode, opType, description);
 
-
-
+        try {
+            // Hide everything to focus on results
+            const heroHeader = document.getElementById('hero-header');
+            const mainToggleBar = document.getElementById('main-toggle-bar');
+            const searchInterface = document.getElementById('search-interface');
+            const floatingElements = document.getElementById('hero-floating-elements');
+            
+            if (heroHeader) heroHeader.classList.add('hidden');
+            if (mainToggleBar) mainToggleBar.classList.add('hidden');
+            if (searchInterface) searchInterface.classList.add('hidden');
             if (floatingElements) floatingElements.classList.add('hidden');
 
             // Show the results panel
@@ -894,12 +1017,13 @@ let performSearch;
                 resultsPanel.style.display = 'flex';
             }
 
-            const searchInput = document.getElementById('gst-search-input');
-            const searchResults = document.getElementById('search-results');
+            const hsnKeywordInput = document.getElementById('hsn-keyword-input');
+            const hsnKeywordResults = document.getElementById('hsn-keyword-results');
 
-            // Clear the search input instead of setting the code
-            if(searchInput) searchInput.value = '';
-            if(searchResults) searchResults.classList.add('hidden');
+            // Clear the keyword search input
+            if(hsnKeywordInput) hsnKeywordInput.value = '';
+            if(hsnKeywordResults) hsnKeywordResults.classList.add('hidden');
+            
             // Update Title
             const resultsTitle = document.getElementById('results-title');
             if (resultsTitle) {
@@ -926,7 +1050,7 @@ let performSearch;
             if (taxPanel) restartAnimations(taxPanel);
 
         } catch (error) {
-            showErrorState('Failed to load HSN details. Please try again.');
+            showErrorState('Invalid Search. Please try again.');
             
             // Ensure panel is visible even on error to show error message
             const resultsPanel = document.getElementById('results-panel');
@@ -946,10 +1070,12 @@ let performSearch;
         try {
             // Hide everything to focus on results
             const heroHeader = document.getElementById('hero-header');
+            const mainToggleBar = document.getElementById('main-toggle-bar');
             const searchInterface = document.getElementById('search-interface');
             const floatingElements = document.getElementById('hero-floating-elements');
             
             if (heroHeader) heroHeader.classList.add('hidden');
+            if (mainToggleBar) mainToggleBar.classList.add('hidden');
             if (searchInterface) searchInterface.classList.add('hidden');
             if (floatingElements) floatingElements.classList.add('hidden');
 
@@ -960,25 +1086,13 @@ let performSearch;
                 resultsPanel.style.display = 'flex';
             }
 
-            const sacInput = document.getElementById('sac-input-field');
-            const searchInput = document.getElementById('gst-search-input');
-            const searchResults = document.getElementById('search-results');
+            const sacKeywordInput = document.getElementById('sac-keyword-input');
+            const sacKeywordResults = document.getElementById('sac-keyword-results');
 
-            // Set SAC code with hyphen formatting (XXX-X-X-X)
-            if(sacInput) {
-                // Remove any non-digits and format as XXX-X-X-X
-                const digitsOnly = sacCode.replace(/\D/g, '');
-                if(digitsOnly.length === 6) {
-                    sacInput.value = digitsOnly.slice(0, 3) + '-' + digitsOnly.slice(3, 4) + '-' + digitsOnly.slice(4, 5) + '-' + digitsOnly.slice(5, 6);
-                } else {
-                    sacInput.value = sacCode;
-                }
-                // Trigger input event to ensure formatting is applied
-                sacInput.dispatchEvent(new Event('input'));
-            }
-            // Clear the search input
-            if(searchInput) searchInput.value = '';
-            if(searchResults) searchResults.classList.add('hidden');
+            // Clear the keyword search input
+            if(sacKeywordInput) sacKeywordInput.value = '';
+            if(sacKeywordResults) sacKeywordResults.classList.add('hidden');
+            
             // Update Title
             const resultsTitle = document.getElementById('results-title');
             if (resultsTitle) {
@@ -990,11 +1104,6 @@ let performSearch;
 
             // Get complete SAC information using the combined API call
             const completeInfo = await TaxLookupAPI.getCompleteSACInfo(sacCode);
-
-            // Debug logging
-            console.log('SAC Complete Info:', completeInfo);
-            console.log('SAC Hierarchy:', completeInfo.hierarchy);
-            console.log('SAC Tax Info:', completeInfo.taxInfo);
 
             // Update UI with real data
             // For SAC data, the hierarchy is nested inside the data object
@@ -1010,7 +1119,7 @@ let performSearch;
             if (taxPanel) restartAnimations(taxPanel);
 
         } catch (error) {
-            showErrorState('Failed to load SAC details. Please try again.');
+            showErrorState('Invalid Search. Please try again.');
 
             // Ensure panel is visible even on error to show error message
             const resultsPanel = document.getElementById('results-panel');
@@ -1354,16 +1463,16 @@ let performSearch;
         }, 100);
     }
 
-    // HSN Code Input Logic (Unified Input)
+    // HSN Code Input Logic
     const hsnInput = document.getElementById('hsn-input-field');
     const hsnSearchBtn = document.getElementById('hsn-search-btn');
 
     if (hsnInput && hsnSearchBtn) {
-        // Initialize helper text as visible with invalid state (hidden on mobile, visible on desktop)
+        // Initialize helper text
         const helperText = document.getElementById('hsn-helper-text');
         if (helperText) {
             helperText.textContent = 'Please enter 8-digit tariff item HSN code';
-            helperText.className = 'hidden md:block mt-1 text-xs font-medium text-left text-red-500';
+            helperText.className = 'mt-2 text-xs font-medium text-left text-red-500';
         }
 
         // Handle Input
@@ -1377,33 +1486,28 @@ let performSearch;
             val = val.slice(0, 8);
 
             // Apply HSN format: XX-XX-XX-XX (8 digits: 2-2-2-2)
-            // Progressive formatting: add hyphens as user types
             if (val.length > 6) {
-                // 7-8 digits: XX-XX-XX-XX or XX-XX-XX-X
                 val = val.slice(0, 2) + '-' + val.slice(2, 4) + '-' + val.slice(4, 6) + '-' + val.slice(6);
             } else if (val.length > 4) {
-                // 5-6 digits: XX-XX-XX or XX-XX-X
                 val = val.slice(0, 2) + '-' + val.slice(2, 4) + '-' + val.slice(4);
             } else if (val.length > 2) {
-                // 3-4 digits: XX-XX or XX-X
                 val = val.slice(0, 2) + '-' + val.slice(2);
             }
-            // 1-2 digits: no formatting yet
 
             e.target.value = val;
 
-            // Update Search Button State and Helper Text (check digit count excluding hyphens)
+            // Update Search Button State and Helper Text
             const digitCount = val.replace(/-/g, '').length;
-            const helperText = document.getElementById('hsn-helper-text');
+            const hsnHelperText = document.getElementById('hsn-helper-text');
 
-            if (helperText) {
+            if (hsnHelperText) {
                 if (digitCount === 8) {
-                    helperText.textContent = 'Valid HSN Tariff Item';
-                    helperText.className = 'hidden md:block mt-1 text-xs font-medium text-left text-green-600';
+                    hsnHelperText.textContent = 'Valid HSN Tariff Item';
+                    hsnHelperText.className = 'mt-2 text-xs font-medium text-left text-green-600';
                     hsnSearchBtn.disabled = false;
                 } else {
-                    helperText.textContent = 'Please enter 8-digit tariff item HSN code';
-                    helperText.className = 'hidden md:block mt-1 text-xs font-medium text-left text-red-500';
+                    hsnHelperText.textContent = 'Please enter 8-digit tariff item HSN code';
+                    hsnHelperText.className = 'mt-2 text-xs font-medium text-left text-red-500';
                     hsnSearchBtn.disabled = true;
                 }
             }
@@ -1411,7 +1515,7 @@ let performSearch;
 
         // Handle Enter Key
         hsnInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !hsnSearchBtn.disabled) {
                 triggerHSNSearch();
             }
         });
@@ -1420,16 +1524,16 @@ let performSearch;
         hsnSearchBtn.addEventListener('click', triggerHSNSearch);
     }
 
-    // SAC Code Input Logic (Unified Input)
+    // SAC Code Input Logic
     const sacInput = document.getElementById('sac-input-field');
     const sacSearchBtn = document.getElementById('sac-search-btn');
 
     if (sacInput && sacSearchBtn) {
-        // Initialize helper text as visible with invalid state (hidden on mobile, visible on desktop)
+        // Initialize helper text
         const sacHelperText = document.getElementById('sac-helper-text');
         if (sacHelperText) {
             sacHelperText.textContent = 'Please enter 6-digit service SAC code';
-            sacHelperText.className = 'hidden md:block mt-1 text-xs font-medium text-left text-red-500';
+            sacHelperText.className = 'mt-2 text-xs font-medium text-left text-red-500';
         }
 
         // Handle Input
@@ -1443,33 +1547,28 @@ let performSearch;
             val = val.slice(0, 6);
 
             // Apply SAC format: XXX-X-X-X (6 digits: 3-1-1-1)
-            // Progressive formatting: add hyphens as user types
             if (val.length > 5) {
-                // 6 digits: XXX-X-X-X
                 val = val.slice(0, 3) + '-' + val.slice(3, 4) + '-' + val.slice(4, 5) + '-' + val.slice(5, 6);
             } else if (val.length > 4) {
-                // 5 digits: XXX-X-X
                 val = val.slice(0, 3) + '-' + val.slice(3, 4) + '-' + val.slice(4, 5);
             } else if (val.length > 3) {
-                // 4 digits: XXX-X
                 val = val.slice(0, 3) + '-' + val.slice(3, 4);
             }
-            // 1-3 digits: no formatting yet
 
             e.target.value = val;
 
-            // Update Search Button State and Helper Text (check digit count excluding hyphens)
+            // Update Search Button State and Helper Text
             const digitCount = val.replace(/-/g, '').length;
-            const sacHelperText = document.getElementById('sac-helper-text');
+            const sacHelper = document.getElementById('sac-helper-text');
 
-            if (sacHelperText) {
+            if (sacHelper) {
                 if (digitCount === 6) {
-                    sacHelperText.textContent = 'Valid SAC Service Code';
-                    sacHelperText.className = 'hidden md:block mt-1 text-xs font-medium text-left text-green-600';
+                    sacHelper.textContent = 'Valid SAC Service Code';
+                    sacHelper.className = 'mt-2 text-xs font-medium text-left text-green-600';
                     sacSearchBtn.disabled = false;
                 } else {
-                    sacHelperText.textContent = 'Please enter 6-digit service SAC code';
-                    sacHelperText.className = 'hidden md:block mt-1 text-xs font-medium text-left text-red-500';
+                    sacHelper.textContent = 'Please enter 6-digit service SAC code';
+                    sacHelper.className = 'mt-2 text-xs font-medium text-left text-red-500';
                     sacSearchBtn.disabled = true;
                 }
             }
@@ -1477,7 +1576,7 @@ let performSearch;
 
         // Handle Enter Key
         sacInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !sacSearchBtn.disabled) {
                 triggerSACSearch();
             }
         });
@@ -1487,85 +1586,40 @@ let performSearch;
     }
 
     function triggerHSNSearch() {
-        // Clear all other inputs when starting an HSN search
-        if (searchInput) searchInput.value = '';
-        const sacInput = document.getElementById('sac-input-field');
-        if (sacInput) sacInput.value = '';
-        // Hide search results
-        const searchResults = document.getElementById('search-results');
-        if (searchResults) searchResults.classList.add('hidden');
+        // Clear keyword input when doing code search
+        const hsnKeywordInput = document.getElementById('hsn-keyword-input');
+        if (hsnKeywordInput) hsnKeywordInput.value = '';
         
-        const fullCode = hsnInput ? hsnInput.value.replace(/-/g, '') : '';
+        // Hide keyword results
+        const hsnKeywordResults = document.getElementById('hsn-keyword-results');
+        if (hsnKeywordResults) hsnKeywordResults.classList.add('hidden');
+        
+        const hsnCodeInput = document.getElementById('hsn-input-field');
+        const fullCode = hsnCodeInput ? hsnCodeInput.value.replace(/-/g, '') : '';
 
-        if (!fullCode || fullCode.length < 4) return;
+        if (!fullCode || fullCode.length !== 8) return;
 
-        // Send notification for partial codes (full codes handled by selectHSNCode)
-        if (fullCode.length !== 8) {
-            // Partial HSN search via button
-            sendNotification(fullCode, 'lookup');
-        }
-
-        if (fullCode.length === 8) {
-           // Full HSN lookup
-           selectHSNCode(fullCode);
-        } else {
-           // Perform a search with the partial code
-           performSearch(fullCode);
-        }
+        // Full HSN lookup (8 digits required)
+        selectHSNCode(fullCode);
     }
 
     function triggerSACSearch() {
-        // Clear all other inputs when starting a SAC search
-        if (searchInput) searchInput.value = '';
-        const hsnInput = document.getElementById('hsn-input-field');
-        if (hsnInput) hsnInput.value = '';
-        // Hide search results
-        const searchResults = document.getElementById('search-results');
-        if (searchResults) searchResults.classList.add('hidden');
+        // Clear keyword input when doing code search
+        const sacKeywordInput = document.getElementById('sac-keyword-input');
+        if (sacKeywordInput) sacKeywordInput.value = '';
         
-        const fullCode = sacInput ? sacInput.value.replace(/-/g, '') : '';
+        // Hide keyword results
+        const sacKeywordResults = document.getElementById('sac-keyword-results');
+        if (sacKeywordResults) sacKeywordResults.classList.add('hidden');
+        
+        const sacCodeInput = document.getElementById('sac-input-field');
+        const fullCode = sacCodeInput ? sacCodeInput.value.replace(/-/g, '') : '';
 
         if (!fullCode || fullCode.length !== 6) return;
 
-        // Send notification for SAC search
-        sendNotification(fullCode, 'lookup');
-
-        // Full SAC lookup (6 digits)
+        // Full SAC lookup (6 digits required)
         selectSACCode(fullCode);
     }
 
-    // Mobile Search Switcher
-    window.switchMobileSearch = function(tab) {
-        const tabs = ['keyword', 'hsn', 'sac'];
-
-        tabs.forEach(t => {
-            const btn = document.getElementById(`mob-tab-${t}`);
-            const panel = document.getElementById(`mobile-${t}-panel`);
-
-            if (!btn || !panel) return;
-
-            if (t === tab) {
-                // Active Button
-                btn.className = "flex-1 py-2.5 text-xs font-bold rounded-lg transition-all duration-200 shadow-sm bg-white text-blue-700 ring-1 ring-black/5";
-
-                // Show Panel (remove hidden)
-                panel.classList.remove('hidden');
-
-                // Update search type for keyword tab
-                if (t === 'keyword') {
-                    const searchTypeSelectorMobile = document.getElementById('search-type-selector');
-                    if (searchTypeSelectorMobile) {
-                        searchTypeSelectorMobile.value = currentSearchType;
-                    }
-                }
-            } else {
-                // Inactive Button
-                btn.className = "flex-1 py-2.5 text-xs font-bold rounded-lg transition-all duration-200 text-gray-500 hover:bg-white/50";
-
-                // Hide Panel (add hidden)
-                panel.classList.add('hidden');
-            }
-        });
-    }
 });
 </script>
