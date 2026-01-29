@@ -348,19 +348,13 @@ customStyles: |
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+      opacity: 1;
+      visibility: visible;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
       cursor: pointer;
       z-index: 10;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       border: 2px solid rgba(255, 255, 255, 1);
-  }
-
-  .image-view-wrapper:hover .image-view-button {
-      opacity: 1;
-      visibility: visible;
-      transform: translate(-50%, -50%) scale(1.05);
   }
 
   .image-view-button:hover {
@@ -377,6 +371,87 @@ customStyles: |
 
   .image-view-button:hover svg {
       color: #1f2937;
+  }
+
+  /* Image Popup Modal */
+  .image-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      cursor: pointer;
+  }
+
+  .image-popup-overlay.active {
+      opacity: 1;
+      visibility: visible;
+  }
+
+  .image-popup-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+  }
+
+  .image-popup-overlay.active .image-popup-content {
+      transform: scale(1);
+  }
+
+  .image-popup-content img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  .image-popup-close {
+      position: absolute;
+      top: -48px;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+  }
+
+  .image-popup-close:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: rotate(90deg);
+  }
+
+  .image-popup-close svg {
+      width: 20px;
+      height: 20px;
+      color: white;
+  }
+
+  .image-popup-hint {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      white-space: nowrap;
   }
 
   /* Step Counter Badge */
@@ -453,7 +528,7 @@ customStyles: |
                                 <div class="absolute -bottom-2 left-0 right-0 h-1 rounded-full opacity-60" style="background: linear-gradient(to right, rgba(71, 66, 239, 0.6), rgb(71, 66, 239));"></div>
                             </span>
                         </h1>
-                        <h2 class="text-lg sm:text-xl md:text-2xl text-gray-700 font-medium mb-4">Access GST tax rates programmatically and seamlessly integrate them into your applications.</h2>
+                        <h2 class="text-lg sm:text-xl md:text-2xl text-gray-700 font-medium mb-4">FastGST makes GST tax rates easy to integrate by aggregating publicly available GST information into a single API</h2>
                     </div>
 
                     <!-- Enhanced Button Section with Better Visual Hierarchy -->
@@ -495,7 +570,7 @@ customStyles: |
                                     </svg>
                                 </div>
                                 <div class="text-left">
-                                    <div class="text-xs text-white/90 font-medium uppercase tracking-wider">Launch</div>
+                                    <div class="text-xs text-white/90 font-medium uppercase tracking-wider">Get Started</div>
                                     <div class="font-bold">ConsoleDesk ➔</div>
                                 </div>
                                 <div class="absolute right-4 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:animate-pulse"></div>
@@ -505,7 +580,7 @@ customStyles: |
 
                     <!-- Carousel Images Section -->
                     <div class="w-full mx-auto mb-0 pb-0 px-2 sm:px-6 lg:px-12 xl:px-16">
-                        <div class="flex flex-col sm:flex-row items-start justify-between gap-2 sm:gap-3 lg:gap-4 xl:gap-5">
+                        <div class="flex flex-col sm:flex-row items-start justify-between gap-4 sm:gap-6 lg:gap-8 xl:gap-10">
                             <div class="flex-1 flex flex-col min-w-0 relative">
                                 <div class="relative flex justify-center mb-2">
                                     <span class="step-counter">1</span>
@@ -613,12 +688,28 @@ customStyles: |
     {% include "api-demo.njk" %}
 </main>
 
+<!-- Image Popup Modal -->
+<div id="imagePopup" class="image-popup-overlay">
+    <div class="image-popup-content">
+        <button class="image-popup-close" aria-label="Close popup">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <img id="popupImage" src="" alt="Full size preview">
+        <p class="image-popup-hint">Click anywhere or press ESC to close</p>
+    </div>
+</div>
+
 <script>
-    // Image View Functionality - Open images directly in new tab
-    // This approach works consistently across all environments (local dev, production, mobile)
+    // Image View Functionality - Open images in custom popup modal
     document.addEventListener('DOMContentLoaded', function() {
         const viewButtons = document.querySelectorAll('.image-view-button');
+        const popup = document.getElementById('imagePopup');
+        const popupImage = document.getElementById('popupImage');
+        const closeButton = popup.querySelector('.image-popup-close');
         
+        // Open popup when clicking view button
         viewButtons.forEach(function(button) {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -627,10 +718,42 @@ customStyles: |
                 const imageUrl = this.getAttribute('data-image-url');
                 if (!imageUrl) return;
                 
-                // Open image directly in new tab - works everywhere consistently
-                window.open(imageUrl, '_blank');
+                popupImage.src = imageUrl;
+                popup.classList.add('active');
+                document.body.style.overflow = 'hidden';
             });
         });
+        
+        // Close popup when clicking overlay background
+        popup.addEventListener('click', function(e) {
+            if (e.target === popup) {
+                closePopup();
+            }
+        });
+        
+        // Close popup when clicking close button
+        closeButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closePopup();
+        });
+        
+        // Close popup with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && popup.classList.contains('active')) {
+                closePopup();
+            }
+        });
+        
+        function closePopup() {
+            popup.classList.remove('active');
+            document.body.style.overflow = '';
+            // Clear image source after animation completes
+            setTimeout(function() {
+                if (!popup.classList.contains('active')) {
+                    popupImage.src = '';
+                }
+            }, 300);
+        }
     });
 </script>
 
