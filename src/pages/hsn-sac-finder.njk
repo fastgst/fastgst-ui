@@ -1332,7 +1332,7 @@ let performSACKeywordSearch;
             messageText = `Action: ${key}`;
         }
 
-        fetch('https://api.consoledesk.in/global/notify', {
+        fetch('https://api.consoledesk.in/api/global/notify/telegram', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
