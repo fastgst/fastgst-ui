@@ -11,7 +11,7 @@ FastGST simplifies GST tax rate integration by aggregating GST tax rates into a 
 ### Action Links & Portals
 - **API Swagger**: https://api.taxlookup.fastgst.in/swagger/index.html (Interactive sandbox to test endpoints)
 - **API Documentation**: https://docs.taxlookupapi.fastgst.in (Comprehensive integration guide)
-- **ConsoleDesk Portal**: https://www.consoledesk.in/marketplace/tax-lookup-api (Manage keys and subscriptions)
+- **ConsoleDesk Portal**: https://consoledesk.in (Manage keys and subscriptions)
 
 ### Three-Step Core Workflow
 1. **Search Goods or Services**: Fuzzy-search keywords (e.g. "rice", "consulting") to discover relevant HSN or SAC codes.

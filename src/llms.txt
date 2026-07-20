@@ -20,4 +20,4 @@ Important notes:
 
 ## Optional
 
-- [ConsoleDesk Developer Marketplace](https://www.consoledesk.in/marketplace/tax-lookup-api): Dashboard to activate subscription plans, retrieve API keys, and monitor daily and monthly quotas.
+- [ConsoleDesk Developer Marketplace](https://consoledesk.in): Dashboard to activate subscription plans, retrieve API keys, and monitor daily and monthly quotas.
